@@ -21,4 +21,7 @@ public interface IPatientService
 
     /// Miękkie usunięcie pacjenta (soft delete). Rzuca wyjątek jeśli pacjent nie istnieje.
     Task DeleteAsync(int id);
+
+    //// Wyszukiwanie pacjenta po nazwisku/nr PESEL. Rzuca wyjątek jeśli pacjent nie istnieje.
+    Task<PatientListItemDto> FindPatientAsync(string name, string lastName);
 }

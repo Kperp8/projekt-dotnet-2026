@@ -58,6 +58,15 @@ public class PatientRepository : IPatientRepository
             .AnyAsync(p => p.Pesel == pesel);
     }
 
+    public async Task<Patient?> FindByNameAsync(string firstName, string lastName)
+    {
+        return await _context.Patients
+            .Include(p => p.Visits)
+            .FirstOrDefaultAsync(p =>
+                p.FirstName == firstName &&
+                p.LastName == lastName);
+    }
+
     public async Task AddAsync(Patient patient)
     {
         await _context.Patients.AddAsync(patient);

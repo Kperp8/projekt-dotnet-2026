@@ -100,4 +100,28 @@ public class PatientService : IPatientService
 
         _logger.LogInformation("Usunięto (soft delete) pacjenta Id={Id}", patient.Id);
     }
+
+    public async Task<PatientListItemDto> FindPatientAsync(string name, string lastName)
+    {
+        Patient? patient;
+
+        // jeśli 'name' ma 11 cyfr – traktujemy jako PESEL i ignorujemy lastName
+        bool isPesel = name.Length == 11 && name.All(char.IsDigit);
+        if (isPesel)
+        {
+            var results = await _repository.SearchAsync(name);
+            patient = results.Count > 0
+                ? await _repository.GetByIdAsync(results[0].Id)
+                : null;
+        }
+        else
+        {
+            patient = await _repository.FindByNameAsync(name, lastName);
+        }
+
+        if (patient is null)
+            throw new KeyNotFoundException($"Nie znaleziono pacjenta '{name} {lastName}'.");
+
+        return _mapper.ToListItemDto(patient);
+    }
 }
