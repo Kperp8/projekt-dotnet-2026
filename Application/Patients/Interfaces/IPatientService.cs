@@ -24,4 +24,7 @@ public interface IPatientService
 
     //// Wyszukiwanie pacjenta po nazwisku/nr PESEL. Rzuca wyjątek jeśli pacjent nie istnieje.
     Task<PatientListItemDto> FindPatientAsync(string name, string lastName);
+
+    /// Zwraca listę wizyt pacjenta po PESEL. Rzuca wyjątek jeśli pacjent nie istnieje.
+    Task<IReadOnlyList<VisitListItemDto>> ListPatientVisitsAsync(string pesel);
 }

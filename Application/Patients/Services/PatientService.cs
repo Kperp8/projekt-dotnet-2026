@@ -124,4 +124,18 @@ public class PatientService : IPatientService
 
         return _mapper.ToListItemDto(patient);
     }
+
+    public async Task<IReadOnlyList<VisitListItemDto>> ListPatientVisitsAsync(string pesel)
+    {
+        var results = await _repository.SearchAsync(pesel);
+        if (results.Count == 0)
+            throw new KeyNotFoundException($"Nie znaleziono pacjenta z PESEL {pesel}.");
+
+        var patient = await _repository.GetByIdAsync(results[0].Id);
+        if (patient is null)
+            throw new KeyNotFoundException($"Nie znaleziono pacjenta z PESEL {pesel}.");
+
+        // TODO: zastąpić mapowaniem na VisitListItemDto gdy moduł Wizyt zostanie zaimplementowany
+        return [];
+    }
 }
