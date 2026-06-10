@@ -19,15 +19,15 @@ public class IndexModel : PageModel
 
     public IReadOnlyList<PatientListItemDto> Patients { get; set; } = [];
     public string? Query { get; set; }
-    public int Page { get; set; } = 1;
+    public int CurrentPage { get; set; } = 1;
 
     public async Task OnGetAsync(string? query, int page = 1)
     {
         Query = query;
-        Page = page < 1 ? 1 : page;
+        CurrentPage = page < 1 ? 1 : page;
 
         Patients = string.IsNullOrWhiteSpace(query)
-            ? await _patientService.GetPagedAsync(Page, PageSize)
+            ? await _patientService.GetPagedAsync(CurrentPage, PageSize)
             : await _patientService.SearchAsync(query);
     }
 }

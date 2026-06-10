@@ -63,17 +63,17 @@ else
     {
         <nav>
             <ul class="pagination">
-                @if (Model.Page > 1)
+                @if (Model.CurrentPage > 1)
                 {
                     <li class="page-item">
-                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.Page - 1)">Poprzednia</a>
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
                     </li>
                 }
-                <li class="page-item active"><a class="page-link">@Model.Page</a></li>
-                @if (Model.Patients.Count == Model.PageSize)
+                <li class="page-item active"><a class="page-link">@Model.CurrentPage</a></li>
+                @if (Model.Patients.Count == IndexModel.PageSize)
                 {
                     <li class="page-item">
-                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.Page + 1)">Następna</a>
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage + 1)">Następna</a>
                     </li>
                 }
             </ul>
