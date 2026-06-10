@@ -1,26 +1,60 @@
+using Application.Patients.Interfaces;
+using Application.Patients.Mappers;
+using Application.Patients.Services;
+using Domain.Patients;
+using Infrastructure.Data;
+using Infrastructure.Identity;
+using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// --- Baza danych ---
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// --- Identity ---
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+    {
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireUppercase = true;
+        options.Password.RequireNonAlphanumeric = false;
+        options.User.RequireUniqueEmail = true;
+    })
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+// --- Serwisy aplikacyjne ---
+builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPatientService, PatientService>();
+builder.Services.AddScoped<PatientMapper>();
+
+// --- Razor Pages + Controllers (potrzebne pod API) ---
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// --- Middleware ---
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
+// UseAuthentication musi być przed UseAuthorization
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages().WithStaticAssets();
+app.MapControllers();
 
 app.Run();
