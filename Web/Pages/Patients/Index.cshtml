@@ -1,0 +1,82 @@
+@page
+@model Web.Pages.Patients.IndexModel
+@{
+    ViewData["Title"] = "Pacjenci";
+}
+
+<h1>Pacjenci</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="query" value="@Model.Query" class="form-control"
+                       placeholder="Szukaj po nazwisku lub PESEL..." />
+                <button type="submit" class="btn btn-outline-secondary">Szukaj</button>
+                @if (!string.IsNullOrEmpty(Model.Query))
+                {
+                    <a asp-page="./Index" class="btn btn-outline-danger">Wyczyść</a>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-page="./Create" class="btn btn-primary">+ Nowy pacjent</a>
+    </div>
+</div>
+
+@if (!Model.Patients.Any())
+{
+    <div class="alert alert-info">Brak pacjentów spełniających kryteria.</div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nazwisko i imię</th>
+                <th>PESEL</th>
+                <th>Data urodzenia</th>
+                <th>Wizyty</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in Model.Patients)
+            {
+                <tr>
+                    <td>@patient.LastName @patient.FirstName</td>
+                    <td>@patient.Pesel</td>
+                    <td>@patient.BirthDate.ToString("dd.MM.yyyy")</td>
+                    <td>@patient.VisitsCount</td>
+                    <td class="text-end">
+                        <a asp-page="./Details" asp-route-id="@patient.Id" class="btn btn-sm btn-outline-secondary">Szczegóły</a>
+                        <a asp-page="./Edit" asp-route-id="@patient.Id" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                        <a asp-page="./Delete" asp-route-id="@patient.Id" class="btn btn-sm btn-outline-danger">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (string.IsNullOrEmpty(Model.Query))
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
+                    </li>
+                }
+                <li class="page-item active"><a class="page-link">@Model.CurrentPage</a></li>
+                @if (Model.Patients.Count == IndexModel.PageSize)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage + 1)">Następna</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+}
