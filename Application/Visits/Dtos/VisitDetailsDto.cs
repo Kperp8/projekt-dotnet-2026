@@ -1,6 +1,6 @@
 namespace Application.Visits.Dtos;
 
-/// Pełne DTO wizyty zwracane przez GET /visits/{id}.
+/// <summary>Pełne DTO wizyty zwracane przez GET /visits/{id}.</summary>
 public class VisitDetailsDto
 {
     public int Id { get; set; }

@@ -1,6 +1,6 @@
 namespace Application.Visits.Dtos;
 
-/// Lekkie DTO używane na liście wizyt.
+/// <summary>Lekkie DTO używane na liście wizyt.</summary>
 public class VisitListItemDto
 {
     public int Id { get; set; }
