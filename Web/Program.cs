@@ -1,7 +1,11 @@
 using Application.Patients.Interfaces;
 using Application.Patients.Mappers;
 using Application.Patients.Services;
+using Application.Visits.Interfaces;
+using Application.Visits.Mappers;
+using Application.Visits.Services;
 using Domain.Patients;
+using Domain.Visits;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
@@ -30,6 +34,9 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
 builder.Services.AddScoped<IPatientRepository, PatientRepository>();
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<PatientMapper>();
+builder.Services.AddScoped<IVisitsRepository, VisitRepository>();
+builder.Services.AddScoped<IVisitService, VisitService>();
+builder.Services.AddScoped<VisitMapper>();
 
 // --- Razor Pages + Controllers (potrzebne pod API) ---
 builder.Services.AddRazorPages();
