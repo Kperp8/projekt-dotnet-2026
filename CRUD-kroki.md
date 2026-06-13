@@ -101,16 +101,6 @@ Co powinno się tam znaleźć:
 - Atrybuty Authorize dla ról
 - Obsługa błędów 404, 409, 400
 
-## 6. Konfiguracja bazy
-
-Zaktualizuj plik:
-
-- Web/appsettings.json
-
-Co powinno się tam znaleźć:
-
-- ConnectionStrings: DefaultConnection
-
 ## 7. Migracje EF Core
 
 Uruchom komendy:
