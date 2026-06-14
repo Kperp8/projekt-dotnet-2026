@@ -1,4 +1,5 @@
 using Application.Patients.Dtos;
+using Application.Visits.Dtos;
 using Application.Patients.Interfaces;
 using Application.Patients.Mappers;
 using Domain.Patients;

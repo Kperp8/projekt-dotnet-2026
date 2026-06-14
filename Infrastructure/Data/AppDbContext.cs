@@ -14,6 +14,8 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole, string>
 
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<Visit> Visits => Set<Visit>();
+    public DbSet<MedicalRecord> MedicalRecords => Set<MedicalRecord>();
+    public DbSet<MedicalDocument> MedicalDocuments => Set<MedicalDocument>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -22,5 +24,6 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole, string>
 
         builder.ApplyConfiguration(new PatientConfiguration());
         builder.ApplyConfiguration(new VisitConfiguration());
+        builder.ApplyConfiguration(new MedicalRecordConfiguration());
     }
 }

@@ -1,4 +1,5 @@
 using Application.Patients.Dtos;
+using Application.Visits.Dtos;
 
 namespace Application.Patients.Interfaces;
 

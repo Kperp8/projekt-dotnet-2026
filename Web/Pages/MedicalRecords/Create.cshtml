@@ -1,0 +1,54 @@
+@page
+@model Web.Pages.MedicalRecords.CreateModel
+@{
+    ViewData["Title"] = "Nowa kartoteka medyczna";
+}
+
+<h1>Nowa kartoteka medyczna</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.PatientId" class="form-label">ID pacjenta</label>
+                <input asp-for="Input.PatientId" class="form-control" type="number" min="1" />
+                <span asp-validation-for="Input.PatientId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.BloodType" class="form-label">Grupa krwi</label>
+                <select asp-for="Input.BloodType" class="form-select">
+                    <option value="">-- wybierz --</option>
+                    @foreach (var bt in new[] { "A+", "A-", "B+", "B-", "AB+", "AB-", "0+", "0-" })
+                    {
+                        <option value="@bt">@bt</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.BloodType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AllergiesText" class="form-label">Alergie</label>
+                <textarea asp-for="AllergiesText" class="form-control" rows="3"
+                          placeholder="Wpisz każdą alergię w osobnej linii..."></textarea>
+                <div class="form-text">Każda pozycja w osobnej linii.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ChronicDiseasesText" class="form-label">Choroby przewlekłe</label>
+                <textarea asp-for="ChronicDiseasesText" class="form-control" rows="3"
+                          placeholder="Wpisz każdą chorobę w osobnej linii..."></textarea>
+                <div class="form-text">Każda pozycja w osobnej linii.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <a asp-page="./Index" class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

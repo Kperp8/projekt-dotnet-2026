@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model Web.Pages.MedicalRecords.DeleteModel
+@{
+    ViewData["Title"] = "Usuń kartotekę medyczną";
+}
+
+<h1>Usuń kartotekę medyczną</h1>
+
+<div class="alert alert-danger">
+    Czy na pewno chcesz trwale usunąć tę kartotekę? Operacja jest nieodwracalna.
+</div>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Pacjent</dt>
+    <dd class="col-sm-9">@Model.Record.PatientFullName</dd>
+
+    <dt class="col-sm-3">Grupa krwi</dt>
+    <dd class="col-sm-9">@Model.Record.BloodType</dd>
+
+    <dt class="col-sm-3">Data utworzenia</dt>
+    <dd class="col-sm-9">@Model.Record.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+</dl>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Tak, usuń</button>
+    <a asp-page="./Details" asp-route-id="@Model.Record.Id" class="btn btn-outline-secondary ms-2">Anuluj</a>
+</form>
