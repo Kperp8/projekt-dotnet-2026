@@ -23,5 +23,5 @@ public class Patient
     
     public bool IsDeleted { get; set; }
     
-    public ICollection<Visit> Visits { get; set; } = new List<Visit>();
+    public ICollection<Visit> Visits { get; set; } = new List<Visit>(); // TODO: przenieść wizyty pacjenta do kartoteki (karty pacjentów?)
 }

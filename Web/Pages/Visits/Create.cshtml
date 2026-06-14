@@ -1,0 +1,57 @@
+@page
+@model Web.Pages.Visits.CreateModel
+@{
+    ViewData["Title"] = "Nowa wizyta";
+}
+
+<h1>Nowa wizyta</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.PatientId" class="form-label">Pacjent</label>
+                <select asp-for="Input.PatientId" class="form-select">
+                    <option value="">— wybierz pacjenta —</option>
+                    @foreach (var p in Model.Patients)
+                    {
+                        <option value="@p.Id">@p.LastName @p.FirstName (@p.Pesel)</option>
+                    }
+                </select>
+                <span asp-validation-for="Input.PatientId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.ScheduledAt" class="form-label">Data i godzina wizyty</label>
+                <input asp-for="Input.ScheduledAt" type="datetime-local" class="form-control" />
+                <span asp-validation-for="Input.ScheduledAt" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.AssignedDoctorId" class="form-label">ID lekarza <span class="text-muted">(opcjonalnie)</span></label>
+                <input asp-for="Input.AssignedDoctorId" class="form-control" />
+                <span asp-validation-for="Input.AssignedDoctorId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Status" class="form-label">Status</label>
+                <select asp-for="Input.Status" class="form-select">
+                    <option value="1">Zaplanowana</option>
+                    <option value="2">W trakcie</option>
+                    <option value="3">Zakończona</option>
+                    <option value="4">Anulowana</option>
+                </select>
+                <span asp-validation-for="Input.Status" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <a asp-page="./Index" class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

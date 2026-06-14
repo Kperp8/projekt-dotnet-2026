@@ -1,0 +1,89 @@
+@page
+@model Web.Pages.Visits.IndexModel
+@{
+    ViewData["Title"] = "Wizyty";
+}
+
+<h1>Wizyty</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="query" value="@Model.Query" class="form-control"
+                       placeholder="Szukaj po nazwisku lub PESEL pacjenta..." />
+                <button type="submit" class="btn btn-outline-secondary">Szukaj</button>
+                @if (!string.IsNullOrEmpty(Model.Query))
+                {
+                    <a asp-page="./Index" class="btn btn-outline-danger">Wyczyść</a>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-page="./Create" class="btn btn-primary">+ Nowa wizyta</a>
+    </div>
+</div>
+
+@if (!Model.Visits.Any())
+{
+    <div class="alert alert-info">Brak wizyt spełniających kryteria.</div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Pacjent</th>
+                <th>Data wizyty</th>
+                <th>Status</th>
+                <th>Lekarz</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var visit in Model.Visits)
+            {
+                <tr>
+                    <td>@visit.PatientFullName</td>
+                    <td>@visit.ScheduledAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <span class="badge @IndexModel.StatusBadgeClass(visit.Status)">
+                            @IndexModel.StatusLabel(visit.Status)
+                        </span>
+                    </td>
+                    <td>@(visit.AssignedDoctorId ?? "—")</td>
+                    <td class="text-end">
+                        <a asp-page="./Details" asp-route-id="@visit.Id" class="btn btn-sm btn-outline-secondary">Szczegóły</a>
+                        <a asp-page="./Edit" asp-route-id="@visit.Id" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                        @if (visit.Status != VisitStatus.Cancelled && visit.Status != VisitStatus.Completed)
+                        {
+                            <a asp-page="./Cancel" asp-route-id="@visit.Id" class="btn btn-sm btn-outline-danger">Anuluj</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (string.IsNullOrEmpty(Model.Query))
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
+                    </li>
+                }
+                <li class="page-item active"><a class="page-link">@Model.CurrentPage</a></li>
+                @if (Model.Visits.Count == IndexModel.PageSize)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage + 1)">Następna</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+}

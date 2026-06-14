@@ -1,7 +1,9 @@
 namespace Application.Patients.Dtos;
 
+/// <summary>
 /// Pełne DTO pacjenta zwracane przez GET /api/patients/{id}.
 /// Zawiera wszystkie dane kontaktowe. IsDeleted i inne pola techniczne są pominięte celowo.
+/// </summary>
 public class PatientDetailsDto
 {
     public int Id { get; set; }

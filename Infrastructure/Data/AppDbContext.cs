@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole, string>
     }
 
     public DbSet<Patient> Patients => Set<Patient>();
+    public DbSet<Visit> Visits => Set<Visit>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -20,5 +21,6 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole, string>
         base.OnModelCreating(builder);
 
         builder.ApplyConfiguration(new PatientConfiguration());
+        builder.ApplyConfiguration(new VisitConfiguration());
     }
 }
