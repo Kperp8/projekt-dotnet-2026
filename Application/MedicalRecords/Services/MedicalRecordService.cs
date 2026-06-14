@@ -78,4 +78,18 @@ public class MedicalRecordService : IMedicalRecordService
 
         return _mapper.ToDetailsDto(record);
     }
+
+    public async Task DeleteAsync(int id)
+    {
+        var record = await _repository.GetByIdAsync(id);
+        if (record is null)
+        {
+            throw new KeyNotFoundException($"Rekord medyczny o Id={id} nie istnieje.");
+        }
+
+        await _repository.DeleteAsync(record);
+        await _repository.SaveChangesAsync();
+
+        _logger.LogInformation("Usunięto rekord medyczny Id={Id}", id);
+    }
 }

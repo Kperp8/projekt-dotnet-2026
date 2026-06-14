@@ -1,0 +1,73 @@
+@page "{id:int}"
+@model Web.Pages.MedicalRecords.DetailsModel
+@{
+    ViewData["Title"] = "Kartoteka medyczna";
+}
+
+<h1>Kartoteka medyczna</h1>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Pacjent</dt>
+    <dd class="col-sm-9">@Model.Record.PatientFullName</dd>
+
+    <dt class="col-sm-3">Grupa krwi</dt>
+    <dd class="col-sm-9">@Model.Record.BloodType</dd>
+
+    <dt class="col-sm-3">Alergie</dt>
+    <dd class="col-sm-9">
+        @if (Model.Record.Allergies.Any())
+        {
+            <ul class="mb-0">
+                @foreach (var item in Model.Record.Allergies)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <span class="text-muted">Brak</span>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Choroby przewlekłe</dt>
+    <dd class="col-sm-9">
+        @if (Model.Record.ChronicDiseases.Any())
+        {
+            <ul class="mb-0">
+                @foreach (var item in Model.Record.ChronicDiseases)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <span class="text-muted">Brak</span>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Notatki</dt>
+    <dd class="col-sm-9">
+        @if (Model.Record.Notes.Any())
+        {
+            <ul class="mb-0">
+                @foreach (var item in Model.Record.Notes)
+                {
+                    <li>@item</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <span class="text-muted">Brak</span>
+        }
+    </dd>
+
+    <dt class="col-sm-3">Data utworzenia</dt>
+    <dd class="col-sm-9">@Model.Record.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
+</dl>
+
+<a asp-page="./Edit" asp-route-id="@Model.Record.Id" class="btn btn-primary">Edytuj</a>
+<a asp-page="./Delete" asp-route-id="@Model.Record.Id" class="btn btn-outline-danger ms-2">Usuń</a>
+<a asp-page="./Index" class="btn btn-outline-secondary ms-2">Wróć do listy</a>

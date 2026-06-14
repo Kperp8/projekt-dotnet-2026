@@ -18,4 +18,7 @@ public interface IMedicalRecordService
 
     /// <summary>Aktualizuje dane rekordu. Rzuca wyjątek jeśli rekord nie istnieje.</summary>
     Task<MedicalRecordDetailsDto> UpdateAsync(int id, MedicalRecordUpdateDto dto);
+
+    /// <summary>Trwale usuwa rekord medyczny. Rzuca wyjątek jeśli rekord nie istnieje.</summary>
+    Task DeleteAsync(int id);
 }

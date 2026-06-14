@@ -91,6 +91,12 @@ public class MedicalRecordRepository : IMedicalRecordsRepository
         return Task.CompletedTask;
     }
 
+    public Task DeleteAsync(MedicalRecord record)
+    {
+        _context.MedicalRecords.Remove(record);
+        return Task.CompletedTask;
+    }
+
     public async Task SaveChangesAsync()
     {
         await _context.SaveChangesAsync();

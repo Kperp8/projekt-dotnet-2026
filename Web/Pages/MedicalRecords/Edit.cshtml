@@ -1,0 +1,52 @@
+@page "{id:int}"
+@model Web.Pages.MedicalRecords.EditModel
+@{
+    ViewData["Title"] = "Edytuj kartotekę medyczną";
+}
+
+<h1>Edytuj kartotekę medyczną</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Pacjent</label>
+                <input value="@Model.PatientFullName" class="form-control" disabled />
+                <small class="text-muted">Pacjent przypisany do kartoteki nie może być zmieniany.</small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Grupa krwi</label>
+                <input value="@Model.BloodType" class="form-control" disabled />
+                <small class="text-muted">Grupę krwi zmienia wyłącznie administrator.</small>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AllergiesText" class="form-label">Alergie</label>
+                <textarea asp-for="AllergiesText" class="form-control" rows="3"></textarea>
+                <div class="form-text">Każda pozycja w osobnej linii.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ChronicDiseasesText" class="form-label">Choroby przewlekłe</label>
+                <textarea asp-for="ChronicDiseasesText" class="form-control" rows="3"></textarea>
+                <div class="form-text">Każda pozycja w osobnej linii.</div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NotesText" class="form-label">Notatki</label>
+                <textarea asp-for="NotesText" class="form-control" rows="4"></textarea>
+                <div class="form-text">Każda pozycja w osobnej linii.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            <a asp-page="./Details" asp-route-id="@Model.RecordId" class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -11,5 +11,6 @@ public interface IMedicalRecordsRepository
     Task<IReadOnlyList<MedicalRecord>> GetByCreationDateAsync(DateOnly date);
     Task AddAsync(MedicalRecord record);
     Task UpdateAsync(MedicalRecord record);
+    Task DeleteAsync(MedicalRecord record);
     Task SaveChangesAsync();
 }
