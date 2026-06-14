@@ -68,6 +68,44 @@
     <dd class="col-sm-9">@Model.Record.CreatedAt.ToString("dd.MM.yyyy HH:mm")</dd>
 </dl>
 
+<h2 class="mt-4">Dokumenty medyczne</h2>
+
+@if (Model.Record.Documents.Any())
+{
+    <table class="table table-sm table-hover mb-3">
+        <thead>
+            <tr>
+                <th>Plik</th>
+                <th>Typ</th>
+                <th>Data dodania</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var doc in Model.Record.Documents)
+            {
+                <tr>
+                    <td>@doc.FileName</td>
+                    <td>@doc.DocumentType</td>
+                    <td>@doc.UploadedAt.ToString("dd.MM.yyyy HH:mm")</td>
+                    <td>
+                        <a href="@doc.FilePath" target="_blank" class="btn btn-sm btn-outline-primary">
+                            Pobierz
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Brak załączonych dokumentów.</p>
+}
+
+<a asp-page="./UploadDocument" asp-route-medicalRecordId="@Model.Record.Id"
+   class="btn btn-success mb-4">Dodaj skan dokumentu</a>
+
 <a asp-page="./Edit" asp-route-id="@Model.Record.Id" class="btn btn-primary">Edytuj</a>
 <a asp-page="./Delete" asp-route-id="@Model.Record.Id" class="btn btn-outline-danger ms-2">Usuń</a>
 <a asp-page="./Index" class="btn btn-outline-secondary ms-2">Wróć do listy</a>

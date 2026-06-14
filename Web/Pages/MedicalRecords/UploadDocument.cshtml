@@ -1,0 +1,58 @@
+@page "{medicalRecordId:int}"
+@model Web.Pages.MedicalRecords.UploadDocumentModel
+@{
+    ViewData["Title"] = "Dodaj dokument";
+}
+
+<h1>Dodaj skan dokumentu medycznego</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Input.MedicalRecordId" />
+
+            <div class="mb-3">
+                <label asp-for="Input.DocumentType" class="form-label">Typ dokumentu</label>
+                <select asp-for="Input.DocumentType" class="form-select">
+                    <option value="">-- wybierz --</option>
+                    <option value="Wynik badania">Wynik badania</option>
+                    <option value="Skierowanie">Skierowanie</option>
+                    <option value="Recepta">Recepta</option>
+                    <option value="Karta wypisowa">Karta wypisowa</option>
+                    <option value="RTG">RTG</option>
+                    <option value="USG">USG</option>
+                    <option value="EKG">EKG</option>
+                    <option value="Inne">Inne</option>
+                </select>
+                <span asp-validation-for="Input.DocumentType" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.File" class="form-label">Plik (PDF, JPG, PNG, TIFF – max 10 MB)</label>
+                <input asp-for="Input.File" type="file" class="form-control"
+                       accept=".pdf,.jpg,.jpeg,.png,.tif,.tiff" />
+                <span asp-validation-for="Input.File" class="text-danger"></span>
+            </div>
+
+            @if (!ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <button type="submit" class="btn btn-primary">Zapisz dokument</button>
+            <a asp-page="./Details" asp-route-id="@Model.Input.MedicalRecordId"
+               class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

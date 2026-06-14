@@ -21,4 +21,7 @@ public interface IMedicalRecordService
 
     /// <summary>Trwale usuwa rekord medyczny. Rzuca wyjątek jeśli rekord nie istnieje.</summary>
     Task DeleteAsync(int id);
+
+    /// <summary>Zapisuje plik skanu i dodaje wpis dokumentu do rekordu medycznego.</summary>
+    Task<MedicalDocumentDto> UploadDocumentAsync(UploadMedicalDocumentDto dto);
 }

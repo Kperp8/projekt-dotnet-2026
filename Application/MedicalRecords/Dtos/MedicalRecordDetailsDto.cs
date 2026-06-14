@@ -11,4 +11,5 @@ public class MedicalRecordDetailsDto
     public ICollection<string> ChronicDiseases { get; set; } = new List<string>();
     public ICollection<string> Notes { get; set; } = new List<string>();
     public DateTime CreatedAt { get; set; }
+    public IReadOnlyList<MedicalDocumentDto> Documents { get; set; } = [];
 }

@@ -39,12 +39,24 @@ public partial class MedicalRecordMapper
     {
         var dto = ToDetailsDtoBase(record);
         dto.PatientFullName = $"{record.Patient?.FirstName} {record.Patient?.LastName}".Trim();
+        dto.Documents = record.MedicalDocuments
+            .Select(d => new MedicalDocumentDto
+            {
+                Id = d.Id,
+                FileName = d.FileName,
+                FilePath = d.FilePath,
+                DocumentType = d.DocumentType,
+                UploadedAt = d.UploadedAt
+            })
+            .OrderByDescending(d => d.UploadedAt)
+            .ToList();
         return dto;
     }
 
     [MapperIgnoreSource(nameof(MedicalRecord.Patient))]
     [MapperIgnoreSource(nameof(MedicalRecord.MedicalDocuments))]
     [MapperIgnoreTarget(nameof(MedicalRecordDetailsDto.PatientFullName))]
+    [MapperIgnoreTarget(nameof(MedicalRecordDetailsDto.Documents))]
     private partial MedicalRecordDetailsDto ToDetailsDtoBase(MedicalRecord record);
 
     /// <summary>

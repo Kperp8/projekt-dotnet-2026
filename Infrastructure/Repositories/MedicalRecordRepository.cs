@@ -85,6 +85,11 @@ public class MedicalRecordRepository : IMedicalRecordsRepository
         await _context.MedicalRecords.AddAsync(record);
     }
 
+    public async Task AddDocumentAsync(MedicalDocument document)
+    {
+        await _context.MedicalDocuments.AddAsync(document);
+    }
+
     public Task UpdateAsync(MedicalRecord record)
     {
         _context.MedicalRecords.Update(record);

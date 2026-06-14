@@ -1,4 +1,5 @@
 using Application.MedicalRecords.Dtos;
+using Application.MedicalRecords.Interfaces;
 using Application.MedicalRecords.Mappers;
 using Application.MedicalRecords.Services;
 using Domain.MedicalRecords;
@@ -12,6 +13,7 @@ public class MedicalRecordServiceTests
 {
     private IMedicalRecordsRepository _repository = null!;
     private MedicalRecordMapper _mapper = null!;
+    private IFileStorageService _fileStorage = null!;
     private MedicalRecordService _service = null!;
 
     [SetUp]
@@ -19,7 +21,8 @@ public class MedicalRecordServiceTests
     {
         _repository = Substitute.For<IMedicalRecordsRepository>();
         _mapper = new MedicalRecordMapper();
-        _service = new MedicalRecordService(_repository, _mapper, NullLogger<MedicalRecordService>.Instance);
+        _fileStorage = Substitute.For<IFileStorageService>();
+        _service = new MedicalRecordService(_repository, _mapper, NullLogger<MedicalRecordService>.Instance, _fileStorage);
     }
 
     // --- CreateAsync ---

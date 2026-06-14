@@ -11,12 +11,18 @@ public class MedicalRecordService : IMedicalRecordService
     private readonly IMedicalRecordsRepository _repository;
     private readonly MedicalRecordMapper _mapper;
     private readonly ILogger<MedicalRecordService> _logger;
+    private readonly IFileStorageService _fileStorage;
 
-    public MedicalRecordService(IMedicalRecordsRepository repository, MedicalRecordMapper mapper, ILogger<MedicalRecordService> logger)
+    public MedicalRecordService(
+        IMedicalRecordsRepository repository,
+        MedicalRecordMapper mapper,
+        ILogger<MedicalRecordService> logger,
+        IFileStorageService fileStorage)
     {
         _repository = repository;
         _mapper = mapper;
         _logger = logger;
+        _fileStorage = fileStorage;
     }
 
     public async Task<MedicalRecordDetailsDto> CreateAsync(MedicalRecordCreateDto dto)
@@ -91,5 +97,39 @@ public class MedicalRecordService : IMedicalRecordService
         await _repository.SaveChangesAsync();
 
         _logger.LogInformation("Usunięto rekord medyczny Id={Id}", id);
+    }
+
+    public async Task<MedicalDocumentDto> UploadDocumentAsync(UploadMedicalDocumentDto dto)
+    {
+        var record = await _repository.GetByIdAsync(dto.MedicalRecordId);
+        if (record is null)
+            throw new KeyNotFoundException($"Rekord medyczny o Id={dto.MedicalRecordId} nie istnieje.");
+
+        var filePath = await _fileStorage.SaveFileAsync(dto.File);
+
+        var document = new MedicalDocument
+        {
+            MedicalRecordId = dto.MedicalRecordId,
+            FileName = Path.GetFileName(dto.File.FileName),
+            FilePath = filePath,
+            DocumentType = dto.DocumentType,
+            UploadedAt = DateTime.UtcNow
+        };
+
+        await _repository.AddDocumentAsync(document);
+        await _repository.SaveChangesAsync();
+
+        _logger.LogInformation(
+            "Dodano dokument do rekordu Id={RecordId}, plik={FileName}",
+            dto.MedicalRecordId, document.FileName);
+
+        return new MedicalDocumentDto
+        {
+            Id = document.Id,
+            FileName = document.FileName,
+            FilePath = document.FilePath,
+            DocumentType = document.DocumentType,
+            UploadedAt = document.UploadedAt
+        };
     }
 }

@@ -44,6 +44,7 @@ builder.Services.AddScoped<VisitMapper>();
 builder.Services.AddScoped<IMedicalRecordsRepository, MedicalRecordRepository>();
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<MedicalRecordMapper>();
+builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 
 // --- Razor Pages + Controllers (potrzebne pod API) ---
 builder.Services.AddRazorPages();
