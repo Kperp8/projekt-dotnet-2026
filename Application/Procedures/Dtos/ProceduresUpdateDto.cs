@@ -1,0 +1,9 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace Application.Procedures.Dtos;
+
+public class ProceduresUpdateDto
+{
+    public string Description { get; set; } = string.Empty;
+    public Decimal Price { get; set; }
+}
