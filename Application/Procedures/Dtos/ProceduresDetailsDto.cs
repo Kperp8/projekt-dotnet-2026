@@ -1,4 +1,4 @@
-namespace Application.Procedures.Dtos;
+namespace Application.Procedure.Dtos;
 
 /// <summary>Pełne DTO wizyty zwracane przez GET /procedures/{id}.</summary>
 public class ProceduresDetailsDto

@@ -1,19 +1,18 @@
-using Application.Procedures.Dtos;
-using Application.Procedures.Interfaces;
-using Application.Procedures.Mappers;
+using Application.Procedure.Dtos;
+using Application.Procedure.Interfaces;
+using Application.Procedure.Mappers;
 using Domain.Procedure;
-using Domain.Procedures;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Procedures.Services;
+namespace Application.Procedure.Services;
 
 public class ProceduresService : IProceduresService
 {
     private readonly IProceduresRepository _repository;
-    private readonly IProceduresMapper _mapper;
+    private readonly ProceduresMapper _mapper;
     private readonly ILogger<ProceduresService> _logger;
 
-    public ProceduresService(IProceduresRepository repository, IProceduresMapper mapper, ILogger<ProceduresService> logger)
+    public ProceduresService(IProceduresRepository repository, ProceduresMapper mapper, ILogger<ProceduresService> logger)
     {
         _repository = repository;
         _mapper = mapper;

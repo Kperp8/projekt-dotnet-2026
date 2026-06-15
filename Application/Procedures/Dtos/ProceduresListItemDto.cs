@@ -1,4 +1,4 @@
-namespace Application.Procedures.Dtos;
+namespace Application.Procedure.Dtos;
 
 /// <summary>Lekkie DTO używane na liście procedur.</summary>
 public class ProceduresListItemDto

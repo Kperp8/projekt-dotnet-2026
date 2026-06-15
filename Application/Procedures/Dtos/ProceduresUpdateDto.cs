@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Application.Procedures.Dtos;
+namespace Application.Procedure.Dtos;
 
 public class ProceduresUpdateDto
 {
