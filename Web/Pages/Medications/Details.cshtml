@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model Web.Pages.Medications.DetailsModel
+@{
+    ViewData["Title"] = "Szczegóły leku";
+}
+
+<h1>Szczegóły leku</h1>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Nazwa</dt>
+    <dd class="col-sm-9">@Model.Medication.Name</dd>
+
+    <dt class="col-sm-3">Dozowanie</dt>
+    <dd class="col-sm-9">@Model.Medication.Dosing</dd>
+
+    <dt class="col-sm-3">Ilość w magazynie</dt>
+    <dd class="col-sm-9">@Model.Medication.Quantity</dd>
+
+    <dt class="col-sm-3">Cena</dt>
+    <dd class="col-sm-9">@Model.Medication.Cost.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pl-PL"))</dd>
+</dl>
+
+<div class="d-flex gap-2">
+    <a asp-page="./Edit" asp-route-id="@Model.Medication.Id" class="btn btn-outline-primary">Edytuj</a>
+    <a asp-page="./Delete" asp-route-id="@Model.Medication.Id" class="btn btn-outline-danger">Usuń</a>
+    <a asp-page="./Index" class="btn btn-outline-secondary">Powrót do listy</a>
+</div>

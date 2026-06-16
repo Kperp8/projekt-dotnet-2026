@@ -1,0 +1,27 @@
+@page "{id:int}"
+@model Web.Pages.Procedures.DeleteModel
+@{
+    ViewData["Title"] = "Usuń procedurę";
+}
+
+<h1>Usuń procedurę</h1>
+
+<div class="alert alert-warning">
+    Czy na pewno chcesz trwale usunąć poniższą procedurę?
+</div>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Nazwa</dt>
+    <dd class="col-sm-9">@Model.Procedure.Name</dd>
+
+    <dt class="col-sm-3">Opis</dt>
+    <dd class="col-sm-9">@Model.Procedure.Description</dd>
+
+    <dt class="col-sm-3">Cena</dt>
+    <dd class="col-sm-9">@Model.Procedure.Price.ToString("C")</dd>
+</dl>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Tak, usuń</button>
+    <a asp-page="./Details" asp-route-id="@Model.Procedure.Id" class="btn btn-outline-secondary ms-2">Anuluj</a>
+</form>

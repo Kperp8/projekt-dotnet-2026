@@ -1,0 +1,22 @@
+@page "{id:int}"
+@model Web.Pages.Procedures.DetailsModel
+@{
+    ViewData["Title"] = "Szczegóły procedury";
+}
+
+<h1>Szczegóły procedury</h1>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Nazwa</dt>
+    <dd class="col-sm-9">@Model.Procedure.Name</dd>
+
+    <dt class="col-sm-3">Opis</dt>
+    <dd class="col-sm-9">@Model.Procedure.Description</dd>
+
+    <dt class="col-sm-3">Cena</dt>
+    <dd class="col-sm-9">@Model.Procedure.Price.ToString("C")</dd>
+</dl>
+
+<a asp-page="./Edit" asp-route-id="@Model.Procedure.Id" class="btn btn-primary">Edytuj</a>
+<a asp-page="./Delete" asp-route-id="@Model.Procedure.Id" class="btn btn-outline-danger ms-2">Usuń</a>
+<a asp-page="./Index" class="btn btn-outline-secondary ms-2">Wróć do listy</a>

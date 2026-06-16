@@ -1,0 +1,40 @@
+@page
+@model Web.Pages.Medications.CreateModel
+@{
+    ViewData["Title"] = "Nowy lek";
+}
+
+<h1>Nowy lek</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Name" class="form-label">Nazwa</label>
+                <input asp-for="Input.Name" class="form-control" />
+                <span asp-validation-for="Input.Name" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Dosing" class="form-label">Dozowanie</label>
+                <input asp-for="Input.Dosing" class="form-control" placeholder="np. 2x dziennie 500 mg" />
+                <span asp-validation-for="Input.Dosing" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Cost" class="form-label">Cena (PLN)</label>
+                <input asp-for="Input.Cost" class="form-control" type="number" step="0.01" min="0" />
+                <span asp-validation-for="Input.Cost" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz</button>
+            <a asp-page="./Index" class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
