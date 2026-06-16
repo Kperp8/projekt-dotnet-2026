@@ -1,7 +1,7 @@
 namespace Application.Medications.Dtos;
 
 /// <summary>Pełne DTO leku zwracane przez GET /medications/{id}.</summary>
-public class MedicationsDetailsDto
+public class MedicationDetailsDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

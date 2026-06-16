@@ -22,7 +22,7 @@ public partial class MedicationMapper
     [MapperIgnoreTarget(nameof(Medication.Id))]
     [MapperIgnoreTarget(nameof(Medication.Name))]
     [MapperIgnoreTarget(nameof(Medication.Quantity))]
-    public partial void UpdateEntity(MedicationsUpdateDto dto, [MappingTarget] Medication medication);
+    public partial void UpdateEntity(MedicationUpdateDto dto, [MappingTarget] Medication medication);
 
     /// <summary>
     /// Medication -> MedicationListItemDto.
@@ -34,7 +34,7 @@ public partial class MedicationMapper
     /// <summary>
     /// Medication -> MedicationDetailsDto.
     /// </summary>
-    public partial MedicationsDetailsDto ToDetailsDto(Medication medication);
+    public partial MedicationDetailsDto ToDetailsDto(Medication medication);
 
     /// <summary>Kolekcja Medication -> lista MedicationListItemDto.</summary>
     public List<MedicationListItemDto> ToListItemDtos(IEnumerable<Medication> medications)
