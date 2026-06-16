@@ -1,14 +1,13 @@
-namespace Domain.Procedure;
+namespace Domain.Procedures;
 
 public interface IProceduresRepository
 {
-    Task<Procedures?> GetByIdAsync(int id);
-    Task<IReadOnlyList<Procedures>> GetPagedAsync(int page, int pageSize);
-    Task<IReadOnlyList<Procedures>> SearchAsync(string query);
-    Task<IReadOnlyList<Procedures>> GetByName(string procedureName);
-    Task<IReadOnlyList<Procedures>> GetByPrice(Decimal price);
-    Task AddAsync(Procedures procedure);
-    Task UpdateAsync(Procedures procedure);
-    Task DeleteAsync(Procedures procedure);
+    Task<Procedure?> GetByIdAsync(int id);
+    Task<IReadOnlyList<Procedure>> GetPagedAsync(int page, int pageSize);
+    Task<IReadOnlyList<Procedure>> SearchAsync(string query);
+    Task<IReadOnlyList<Procedure>> GetByMaxPriceAsync(decimal maxPrice);
+    Task AddAsync(Procedure procedure);
+    Task UpdateAsync(Procedure procedure);
+    Task DeleteAsync(Procedure procedure);
     Task SaveChangesAsync();
 }

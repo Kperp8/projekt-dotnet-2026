@@ -4,11 +4,15 @@ using Application.MedicalRecords.Services;
 using Application.Patients.Interfaces;
 using Application.Patients.Mappers;
 using Application.Patients.Services;
+using Application.Procedures.Interfaces;
+using Application.Procedures.Mappers;
+using Application.Procedures.Services;
 using Application.Visits.Interfaces;
 using Application.Visits.Mappers;
 using Application.Visits.Services;
 using Domain.MedicalRecords;
 using Domain.Patients;
+using Domain.Procedures;
 using Domain.Visits;
 using Infrastructure.Data;
 using Infrastructure.Identity;
@@ -45,6 +49,9 @@ builder.Services.AddScoped<IMedicalRecordsRepository, MedicalRecordRepository>()
 builder.Services.AddScoped<IMedicalRecordService, MedicalRecordService>();
 builder.Services.AddScoped<MedicalRecordMapper>();
 builder.Services.AddScoped<IFileStorageService, FileStorageService>();
+builder.Services.AddScoped<IProceduresRepository, ProceduresRepository>();
+builder.Services.AddScoped<IProceduresService, ProceduresService>();
+builder.Services.AddScoped<ProceduresMapper>();
 
 // --- Razor Pages + Controllers (potrzebne pod API) ---
 builder.Services.AddRazorPages();

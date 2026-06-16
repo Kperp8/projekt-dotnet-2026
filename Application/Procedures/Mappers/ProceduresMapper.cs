@@ -1,39 +1,31 @@
-using Application.Procedure.Dtos;
+using Application.Procedures.Dtos;
 using Riok.Mapperly.Abstractions;
 
-namespace Application.Procedure.Mappers;
+namespace Application.Procedures.Mappers;
 
 [Mapper]
 public partial class ProceduresMapper
 {
     /// <summary>
-    /// ProceduresCreateDto -> nowa encja Procedures.
-    /// Id jest jest ignorowane – Id generuje baza.
+    /// ProceduresCreateDto -> nowa encja Procedure.
+    /// Id jest ignorowane – Id generuje baza.
     /// </summary>
-    [MapperIgnoreTarget(nameof(Procedures.Id))]
-    public partial Procedures ToEntity(ProceduresCreateDto dto);
+    [MapperIgnoreTarget(nameof(Procedure.Id))]
+    public partial Procedure ToEntity(ProceduresCreateDto dto);
 
     /// <summary>
-    /// VisitUpdateDto -> aktualizacja istniejącej encji Procedures w miejscu.
-    /// Id i ProcedureName są zachowane z istniejącej encji.
+    /// Procedure -> ProceduresListItemDto.
+    /// Pomijamy Description – nie jest potrzebny na liście.
     /// </summary>
-    [MapperIgnoreTarget(nameof(Procedures.Id))]
-    [MapperIgnoreTarget(nameof(Procedures.ProcedureName))]
-    public partial void UpdateEntity(ProceduresUpdateDto dto, [MappingTarget] Procedures procedure);
+    [MapperIgnoreSource(nameof(Procedure.Description))]
+    public partial ProceduresListItemDto ToListItemDto(Procedure procedure);
 
     /// <summary>
-    /// Procedures -> ProceduresListItemDto.
-    /// Pomijamy jedynie Description
+    /// Procedure -> ProceduresDetailsDto.
     /// </summary>
-    [MapperIgnoreSource(nameof(Procedures.Description))]
-    public partial ProceduresListItemDto ToListItemDto(Procedures procedure);
+    public partial ProceduresDetailsDto ToDetailsDto(Procedure procedure);
 
-    /// <summary>
-    /// Procedures -> ProceduresDetailsDto.
-    /// </summary>
-    public partial ProceduresDetailsDto ToDetailsDto(Procedures procedure);
-
-    /// <summary>Kolekcja Procedures -> lista ProceduresListItemDto.</summary>
-    public List<ProceduresListItemDto> ToListItemDtos(IEnumerable<Procedures> procedures)
+    /// <summary>Kolekcja Procedure -> lista ProceduresListItemDto.</summary>
+    public List<ProceduresListItemDto> ToListItemDtos(IEnumerable<Procedure> procedures)
         => procedures.Select(ToListItemDto).ToList();
 }

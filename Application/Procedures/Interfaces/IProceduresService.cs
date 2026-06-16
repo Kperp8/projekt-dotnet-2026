@@ -1,6 +1,6 @@
-using Application.Procedure.Dtos;
+using Application.Procedures.Dtos;
 
-namespace Application.Procedure.Interfaces;
+namespace Application.Procedures.Interfaces;
 
 public interface IProceduresService
 {

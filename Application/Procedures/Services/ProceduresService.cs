@@ -1,10 +1,10 @@
-using Application.Procedure.Dtos;
-using Application.Procedure.Interfaces;
-using Application.Procedure.Mappers;
-using Domain.Procedure;
+using Application.Procedures.Dtos;
+using Application.Procedures.Interfaces;
+using Application.Procedures.Mappers;
+using Domain.Procedures;
 using Microsoft.Extensions.Logging;
 
-namespace Application.Procedure.Services;
+namespace Application.Procedures.Services;
 
 public class ProceduresService : IProceduresService
 {
@@ -26,7 +26,7 @@ public class ProceduresService : IProceduresService
         await _repository.AddAsync(procedure);
         await _repository.SaveChangesAsync();
 
-        _logger.LogInformation("Utworzono procedurę: Id={Id}, Nazwa={ProcedureName}", procedure.Id, procedure.ProcedureName);
+        _logger.LogInformation("Utworzono procedurę: Id={Id}, Nazwa={Name}", procedure.Id, procedure.Name);
 
         return _mapper.ToDetailsDto(procedure);
     }
@@ -62,12 +62,15 @@ public class ProceduresService : IProceduresService
             throw new KeyNotFoundException($"Procedura o Id={id} nie istnieje.");
         }
 
-        _mapper.UpdateEntity(dto, procedure);
+        // Częściowa aktualizacja – nadpisujemy tylko przekazane wartości
+        if (dto.Name is not null)        procedure.Name = dto.Name;
+        if (dto.Description is not null) procedure.Description = dto.Description;
+        if (dto.Price is not null)       procedure.Price = dto.Price.Value;
 
         await _repository.UpdateAsync(procedure);
         await _repository.SaveChangesAsync();
 
-        _logger.LogInformation("Zaktualizowano procedurę Id={Id}, nowy opis={Description}, nowa cena={Price}", procedure.Id, procedure.Description, procedure.Price);
+        _logger.LogInformation("Zaktualizowano procedurę Id={Id}", procedure.Id);
 
         return _mapper.ToDetailsDto(procedure);
     }

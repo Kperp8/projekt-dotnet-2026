@@ -1,3 +1,5 @@
+using Domain.Procedures;
+
 public class Visit
 {
     public int Id { get; set; }
@@ -12,7 +14,7 @@ public class Visit
 
     public string? AssignedDoctorId { get; set; }
 
-    public ICollection<Procedures> ProceduresPerformed {get; set;} = new List<Procedures>();
+    public ICollection<Procedure> ProceduresPerformed {get; set;} = new List<Procedure>();
 
     public ICollection<ClinicalNotes> ClinicalNotes {get; set;}  = new List<ClinicalNotes>();
 }
