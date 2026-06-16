@@ -1,0 +1,30 @@
+@page "{id:int}"
+@model Web.Pages.Medications.DeleteModel
+@{
+    ViewData["Title"] = "Usuń lek";
+}
+
+<h1>Usuń lek</h1>
+
+<div class="alert alert-danger">
+    Czy na pewno chcesz trwale usunąć ten lek? Operacja jest nieodwracalna.
+</div>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Nazwa</dt>
+    <dd class="col-sm-9">@Model.Medication.Name</dd>
+
+    <dt class="col-sm-3">Dozowanie</dt>
+    <dd class="col-sm-9">@Model.Medication.Dosing</dd>
+
+    <dt class="col-sm-3">Ilość w magazynie</dt>
+    <dd class="col-sm-9">@Model.Medication.Quantity</dd>
+
+    <dt class="col-sm-3">Cena</dt>
+    <dd class="col-sm-9">@Model.Medication.Cost.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pl-PL"))</dd>
+</dl>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Tak, usuń</button>
+    <a asp-page="./Details" asp-route-id="@Model.Medication.Id" class="btn btn-outline-secondary ms-2">Anuluj</a>
+</form>
