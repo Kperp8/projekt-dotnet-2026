@@ -4,6 +4,6 @@ namespace Application.Medications.Dtos;
 
 public class MedicationUpdateDto
 {
-    public string Dosing { get; set; } = string.Empty;
+    public string? Dosing { get; set; }
     public Decimal Cost { get; set; }
 }
