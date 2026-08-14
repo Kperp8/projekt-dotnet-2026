@@ -19,6 +19,7 @@ public class AppDbContext : IdentityDbContext<AppUser, IdentityRole, string>
     public DbSet<MedicalDocument> MedicalDocuments => Set<MedicalDocument>();
     public DbSet<Procedure> Procedures => Set<Procedure>();
     public DbSet<Medication> Medications => Set<Medication>();
+    public DbSet<ClinicalNote> ClinicalNotes => Set<ClinicalNote>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
