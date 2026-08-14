@@ -13,11 +13,15 @@ using Application.Visits.Services;
 using Application.Medications.Interfaces;
 using Application.Medications.Mappers;
 using Application.Medications.Services;
+using Application.ClinicalNotes.Interfaces;
+using Application.ClinicalNotes.Mappers;
+using Application.ClinicalNotes.Services;
 using Domain.MedicalRecords;
 using Domain.Patients;
 using Domain.Procedures;
 using Domain.Visits;
 using Domain.Medications;
+using Domain.ClinicalNotes;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Infrastructure.Repositories;
@@ -59,6 +63,9 @@ builder.Services.AddScoped<ProceduresMapper>();
 builder.Services.AddScoped<IMedicationsRepository, MedicationsRepository>();
 builder.Services.AddScoped<IProceduresService, ProceduresService>();
 builder.Services.AddScoped<ProceduresMapper>();
+builder.Services.AddScoped<IClinicalNotesRepository, ClinicalNotesRepository>();
+builder.Services.AddScoped<IClinicalNotesService, ClinicalNotesService>();
+builder.Services.AddScoped<ClinicalNotesMapper>();
 
 // --- Razor Pages + Controllers (potrzebne pod API) ---
 builder.Services.AddRazorPages();

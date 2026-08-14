@@ -1,0 +1,40 @@
+@page "{id:int}"
+@model Web.Pages.ClinicalNotes.EditModel
+@{
+    ViewData["Title"] = "Edytuj notatkę kliniczną";
+}
+
+<h1>Edytuj notatkę kliniczną</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Input.MedicalHistory" class="form-label">Historia / wywiad</label>
+                <textarea asp-for="Input.MedicalHistory" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Input.MedicalHistory" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Diagnosis" class="form-label">Diagnoza</label>
+                <textarea asp-for="Input.Diagnosis" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.Diagnosis" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Input.Recommendations" class="form-label">Zalecenia</label>
+                <textarea asp-for="Input.Recommendations" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Input.Recommendations" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
+            <a asp-page="./Details" asp-route-id="@Model.NoteId" class="btn btn-outline-secondary ms-2">Anuluj</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

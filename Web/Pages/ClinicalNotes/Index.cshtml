@@ -1,0 +1,78 @@
+@page
+@model Web.Pages.ClinicalNotes.IndexModel
+@{
+    ViewData["Title"] = "Notatki kliniczne";
+}
+
+<h1>Notatki kliniczne</h1>
+
+<div class="row mb-3">
+    <div class="col-md-6">
+        <form method="get">
+            <div class="input-group">
+                <input type="text" name="query" value="@Model.Query" class="form-control"
+                       placeholder="Szukaj po diagnozie lub zaleceniach..." />
+                <button type="submit" class="btn btn-outline-secondary">Szukaj</button>
+                @if (!string.IsNullOrEmpty(Model.Query))
+                {
+                    <a asp-page="./Index" class="btn btn-outline-danger">Wyczyść</a>
+                }
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 text-end">
+        <a asp-page="./Create" class="btn btn-primary">+ Nowa notatka</a>
+    </div>
+</div>
+
+@if (!Model.Notes.Any())
+{
+    <div class="alert alert-info">Brak notatek spełniających kryteria.</div>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nr</th>
+                <th>Diagnoza</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in Model.Notes)
+            {
+                <tr>
+                    <td>@note.Id</td>
+                    <td>@note.Diagnosis</td>
+                    <td class="text-end">
+                        <a asp-page="./Details" asp-route-id="@note.Id" class="btn btn-sm btn-outline-secondary">Szczegóły</a>
+                        <a asp-page="./Edit" asp-route-id="@note.Id" class="btn btn-sm btn-outline-primary">Edytuj</a>
+                        <a asp-page="./Delete" asp-route-id="@note.Id" class="btn btn-sm btn-outline-danger">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (string.IsNullOrEmpty(Model.Query))
+    {
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage - 1)">Poprzednia</a>
+                    </li>
+                }
+                <li class="page-item active"><a class="page-link">@Model.CurrentPage</a></li>
+                @if (Model.Notes.Count == IndexModel.PageSize)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-page="./Index" asp-route-page="@(Model.CurrentPage + 1)">Następna</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+}
