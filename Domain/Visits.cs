@@ -16,5 +16,5 @@ public class Visit
 
     public ICollection<Procedure> ProceduresPerformed {get; set;} = new List<Procedure>();
 
-    public ICollection<ClinicalNotes> ClinicalNotes {get; set;}  = new List<ClinicalNotes>();
+    public ICollection<ClinicalNote> ClinicalNotes {get; set;}  = new List<ClinicalNote>();
 }
