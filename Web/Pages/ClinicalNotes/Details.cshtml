@@ -1,0 +1,25 @@
+@page "{id:int}"
+@model Web.Pages.ClinicalNotes.DetailsModel
+@{
+    ViewData["Title"] = "Szczegóły notatki klinicznej";
+}
+
+<h1>Szczegóły notatki klinicznej</h1>
+
+<dl class="row mb-4">
+    <dt class="col-sm-3">Nr notatki</dt>
+    <dd class="col-sm-9">@Model.Note.Id</dd>
+
+    <dt class="col-sm-3">Historia / wywiad</dt>
+    <dd class="col-sm-9" style="white-space: pre-wrap">@Model.Note.MedicalHistory</dd>
+
+    <dt class="col-sm-3">Diagnoza</dt>
+    <dd class="col-sm-9" style="white-space: pre-wrap">@Model.Note.Diagnosis</dd>
+
+    <dt class="col-sm-3">Zalecenia</dt>
+    <dd class="col-sm-9" style="white-space: pre-wrap">@Model.Note.Recommendations</dd>
+</dl>
+
+<a asp-page="./Edit" asp-route-id="@Model.Note.Id" class="btn btn-primary">Edytuj</a>
+<a asp-page="./Delete" asp-route-id="@Model.Note.Id" class="btn btn-outline-danger ms-2">Usuń</a>
+<a asp-page="./Index" class="btn btn-outline-secondary ms-2">Wróć do listy</a>

@@ -18,7 +18,6 @@ public partial class ClinicalNotesMapper
     /// Pomijamy wszystko, ponieważ to potencjalne długie teksty.
     /// </summary>
     [MapperIgnoreSource(nameof(ClinicalNote.MedicalHistory))]
-    [MapperIgnoreSource(nameof(ClinicalNote.Diagnosis))]
     [MapperIgnoreSource(nameof(ClinicalNote.Recommendations))]
     public partial ClinicalNotesListItemDto ToListItemDto(ClinicalNote note);
 
