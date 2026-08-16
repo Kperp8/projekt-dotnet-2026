@@ -20,7 +20,7 @@ public class MedicationConfiguration : IEntityTypeConfiguration<Medication>
 
         builder.Property(m => m.Quantity)
             .IsRequired()
-            .HasColumnType("number(5)");
+            .HasColumnType("int");
 
         builder.Property(m => m.Cost)
             .IsRequired()

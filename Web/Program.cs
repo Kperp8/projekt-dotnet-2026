@@ -73,6 +73,13 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+// --- Seeding ---
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    await RoleSeeder.SeedRolesAsync(roleManager);
+}
+
 // --- Middleware ---
 if (!app.Environment.IsDevelopment())
 {
